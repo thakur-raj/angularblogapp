@@ -13,14 +13,14 @@ export class BlogHttpService {
   public currentBlog;
   public baseUrl = 'https://blogapp.edwisor.com/api/v1/blogs';
   private authToken = 'ZjVmOTZmODA5MDIzMTU1YzYyMWEwMTM1NTQxNTdhODdhYjYwOWE5OTVhNGM3ZGM4Y2U5MzU0NTJhN2Q5OTZlOTA4NzdhZjVkZGE2NGJkY2UxNTdmYmRlNTBiMTEzZDg5MjUxZDQ4M2QwNjA5ZTRlYjRjNTA2MjFmYjhmZDg1MDE1MQ==';
-
+  private authParam = '?authToken=' + this.authToken;
 
   constructor(private _http: HttpClient) {
     console.log("Blog-Http Service Constructor was called...");
   }
 
   private handleError(err: HttpErrorResponse) {
-    console.log("Handle Error Http calls");
+    console.log('Handle Error Http calls');
     console.log(err.message);
     return Observable.throw(err.message);
 
@@ -39,5 +39,27 @@ export class BlogHttpService {
     return myResponse;
 
   }
+
+  public createBlog(blogData): any {
+    // https://blogapp.edwisor.com/api/v1/blogs/create
+    const myResponse = this._http.post(this.baseUrl + "/create?authToken=" + this.authToken, blogData);
+    return myResponse;
+  }
+
+  public editBlog(blogId, blogData): any {
+    // https://blogapp.edwisor.com/api/v1/blogs/:blogId/edit
+    const myResponse = this._http.put(this.baseUrl + '/' + blogId + '/edit' + this.authParam, blogData);
+    return myResponse;
+  }
+
+  public deleteBlog(blogId): any {
+    //https://blogapp.edwisor.com/api/v1/blogs/:blogId/delete
+    let data = {}
+    const myResponse = this._http.post(this.baseUrl + '/' + blogId + '/delete' + this.authParam, data);
+    console.log(this.baseUrl + '/' + blogId + '/delete' + this.authParam);
+    
+    return myResponse;
+  }
+
 
 }

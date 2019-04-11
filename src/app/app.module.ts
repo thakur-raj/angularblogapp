@@ -6,9 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 //for forms
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
-
+// For toastr
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -32,7 +36,8 @@ import { BlogHttpService } from './blog-http.service';
     NotFoundComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
+    FormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -41,9 +46,13 @@ import { BlogHttpService } from './blog-http.service';
       { path: 'create', component: BlogCreateComponent },
       { path: 'edit/:blogId', component: BlogEditComponent },
       { path: '**', component: NotFoundComponent }
-    ]),
+    ],
+    ),
     HttpClientModule,
-    FormsModule
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot()
+
   ],
   providers: [BlogService, BlogHttpService],
   bootstrap: [AppComponent]
