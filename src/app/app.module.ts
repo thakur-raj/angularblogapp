@@ -1,8 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 //router module used for setting up the application level routing
 import { RouterModule, Routes } from '@angular/router';
+
+//for forms
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -14,6 +18,7 @@ import { BlogEditComponent } from './blog-edit/blog-edit.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BlogService } from './blog.service';
+import { BlogHttpService } from './blog-http.service';
 
 
 @NgModule({
@@ -36,11 +41,11 @@ import { BlogService } from './blog.service';
       { path: 'create', component: BlogCreateComponent },
       { path: 'edit/:blogId', component: BlogEditComponent },
       { path: '**', component: NotFoundComponent }
-
-
-    ])
+    ]),
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [BlogService],
+  providers: [BlogService, BlogHttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
